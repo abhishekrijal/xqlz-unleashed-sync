@@ -93,7 +93,6 @@ export default () => {
             });
             $(".bulk-update-unleashed").click(function () {
                 getWcProducts();
-
             });
 
         });
@@ -132,7 +131,7 @@ export default () => {
             </div>
 
             {/* List products in table if available */}
-            {unleashedProducts.length > 0 ? (
+            {unleashedProducts.length > 0 && (
                 <table className="wp-list-table widefat striped">
                     <thead>
                         <tr>
@@ -157,16 +156,12 @@ export default () => {
                         })}
                     </tbody>
                 </table>
-            ) : (
-                <div className="header-sync">
-                    <h1>No products found</h1>
-                </div>
             )}
 
-            <button onClick={getProductsFromUnleashed} className="button button-primary">Get Products from API</button>
-            Unleashed Product (Bulk Update)
+            {/* <button onClick={getProductsFromUnleashed} className="button button-primary">Get Products from API</button> */}
+            <h2>Unleashed Product (Bulk Update)</h2>
             <button className="button bulk-update-unleashed button-secondary" type="button">Bulk Update</button>
-            <div id="bulk-update-process"></div>
+            <div style={{ marginTop: '20px' }} id="bulk-update-process"></div>
             <input type="hidden" id="curpro_pageid" value="1" />
         </>
     );
