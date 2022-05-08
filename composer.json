@@ -1,0 +1,19 @@
+{
+    "name": "abhishekrijal/xqlz-unleashed-sync",
+    "description": "The custom unleashed sync plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "XqluzSync\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Abhishek Rijal",
+            "email": "avee.wptravelengine@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
