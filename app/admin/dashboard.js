@@ -158,9 +158,10 @@ export default () => {
                 </table>
             )}
 
-            {/* <button onClick={getProductsFromUnleashed} className="button button-primary">Get Products from API</button> */}
+            <button onClick={getProductsFromUnleashed} className="button button-primary">Get Products from API</button>
             <h2>Unleashed Product (Bulk Update)</h2>
-            <button className="button bulk-update-unleashed button-secondary" type="button">Bulk Update</button>
+            <button style={{ marginRight: '10px' }} className="button bulk-update-unleashed button-secondary" type="button">Bulk Update</button>
+            <button className="button bulk-update-unleashed button-secondary" type="button">Bulk Price Update</button>
             <div style={{ marginTop: '20px' }} id="bulk-update-process"></div>
             <input type="hidden" id="curpro_pageid" value="1" />
         </>

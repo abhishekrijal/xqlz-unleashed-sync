@@ -160,10 +160,19 @@ __webpack_require__.r(__webpack_exports__);
       height: 150,
       src: product.ImageUrl
     })), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", null, product.ProductCode));
-  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Unleashed Product (Bulk Update)"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+  }))), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: getProductsFromUnleashed,
+    className: "button button-primary"
+  }, "Get Products from API"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", null, "Unleashed Product (Bulk Update)"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    style: {
+      marginRight: '10px'
+    },
     className: "button bulk-update-unleashed button-secondary",
     type: "button"
-  }, "Bulk Update"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }, "Bulk Update"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: "button bulk-update-unleashed button-secondary",
+    type: "button"
+  }, "Bulk Price Update"), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     style: {
       marginTop: '20px'
     },
