@@ -1,0 +1,13 @@
+.xql-isLoading::before {
+    color: #d63638;
+    content: "\f463";
+    display: inline-block;
+    font: normal 20px/1 dashicons;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    vertical-align: top;
+    animation: rotation 2s infinite linear;
+    margin-right: 5px;
+    margin-top: 4px;
+    margin-left: -7px;
+}

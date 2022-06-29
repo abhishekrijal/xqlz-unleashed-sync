@@ -19,8 +19,8 @@ class XqluzSyncAdmin
 {
 
 	public $api = "https://api.unleashedsoftware.com/";
-	public $apiId = "8195221a-0157-4502-84b5-8abbfe135328";
-	public $apiKey = "rdkPWaGiaKt2ZnoXrDx2HwC5Gin6NiVy0upndM1jSp19L4m9oOjffGCF4D6fJyHNmltOy8zeMcCU2QGKiw==";
+	public $apiId = "7f057946-85d2-4054-ba44-28ee24291882";
+	public $apiKey = "umYTexpzj6P8M9dL9VYXLOl8FD3SFaGKaUOUbWBLWrmXzHDVnR08Rs0mSzU07vC6MmsRY9lccXUdxJxfFQ==";
 
 	/**
 	 * Constructor
@@ -66,6 +66,8 @@ class XqluzSyncAdmin
 		}
 
 		wp_enqueue_script( 'common-admin-xqluz', plugin_dir_url(XQLUZ_SYNC_PLUGIN_FILE) . 'app/js/admin.js', ['jquery'], '1.0.0', true );
+
+		wp_enqueue_style( 'xqluz-admin-css', plugin_dir_url(XQLUZ_SYNC_PLUGIN_FILE) . 'app/admin/admin.css'  );
 	}
 
 	public function api_init() {
@@ -350,16 +352,16 @@ class XqluzSyncAdmin
 			print_R($customer_data);
 			echo "</pre>";exit; */
 
-			$request = 'ProductCode=' . $skuCode;
+			$request = 'ProductCode=' . $skuCode . '&includeAttributes=true';
 			if (empty($productId)) {
 				$productId = wc_get_product_id_by_sku($skuCode);
 			}
 
 			$product = array();
 			$product_data = $this->getProducts($skuCode, $request);
-			/*  echo "<pre>";
-			print_r($product_data);
-			echo "</pre>";exit; */
+			// echo "<pre>";
+			// print_r($product_data);
+			// echo "</pre>";exit;
 			if (isset($product_data['Items']) && !empty($product_data['Items'])) {
 				$product = $product_data['Items'][0];
 				$imageUrl = $product_data['Items'][0]['ImageUrl'];
@@ -369,6 +371,22 @@ class XqluzSyncAdmin
 				$attach_id = $this->insertImageWp($imageUrl);
 				update_post_meta($productId, '_thumbnail_id', $attach_id);
 			}
+
+			$product_attr_array = isset( $product_data['AttributeSet']['Attributes'] ) ? $product_data['AttributeSet']['Attributes'] : array();
+
+			$active_array = array_filter( $product_attr_array, function($attr) {
+				return $attr['Name'] === 'Active' && '1' == $attr['Value'];
+			} );
+
+			// echo "<pre>";
+			// print_r($active_array);
+			// echo "</pre>";exit;
+
+			wp_update_post([
+				'ID' => $productId,
+				'post_title' => $product['ProductDescription'],
+				'post_status' => ! empty( $active_array ) ? 'draft' : 'publish', 
+			]);
 
 			$imagesUrl = $product_data['Items'][0]['Images'];
 			$galleryImages = array();

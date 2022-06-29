@@ -12,10 +12,18 @@
                 url: ajaxurl,
                 dataType: "json",
                 data: { action: "xqluz_update_wc_products", product_id: curId },
+                beforeSend: function () {
+                    // setting a timeout
+                    $(curEle).addClass('xql-isLoading');
+                },
+                success: function (data) {
+                    $(curEle).removeClass('xql-isLoading');
+                }
 
             });
             jqxhr.always(function (data) {
                 // removeAndCheck(curEle);
+                $(curEle).removeClass('xql-isLoading');
             }
             );
         }
