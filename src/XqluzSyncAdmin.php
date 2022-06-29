@@ -51,7 +51,17 @@ class XqluzSyncAdmin
 
 		add_filter('manage_edit-product_columns', array($this,'product_update_col'));
 		add_action('manage_product_posts_custom_column', array($this,'product_update_col_data'), 2);
+
+		add_action( 'media_buttons', array($this,'add_form_button') );
 	}
+
+	function add_form_button(){
+
+		global $post;
+
+		// show button for v 3.4 and below
+		echo '<a class="button xqlupdate-single-data" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Images & Price</a>';
+    }
 
 	/**
 	 * Admin Enqueue Scripts
