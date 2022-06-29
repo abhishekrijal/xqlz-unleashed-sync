@@ -388,6 +388,12 @@ class XqluzSyncAdmin
 				'post_status' => ! empty( $active_array ) ? 'draft' : 'publish', 
 			]);
 
+			// Get and update unit of measure.
+			$unit_of_measure = isset( $product['UnitOfMeasure'] ) ? $product['UnitOfMeasure']['Name'] : '';
+
+			// Save to meta.
+			update_post_meta( $productId, '_product_unit_of_measure', $unit_of_measure );
+
 			$imagesUrl = $product_data['Items'][0]['Images'];
 			$galleryImages = array();
 			if ($imagesUrl) {
@@ -550,6 +556,7 @@ class XqluzSyncAdmin
 	{
 		$new_columns = (is_array($columns)) ? $columns : array();
 		$new_columns['UNLEASHUPDATE'] = 'Unleashed Update';
+		$new_columns['UNITOFMEASURE'] = __( 'Unit of Measure', 'txtdomain' );
 		return $new_columns;
 	}
 
@@ -560,6 +567,11 @@ class XqluzSyncAdmin
 
 		if ($column == 'UNLEASHUPDATE') {
 			echo '<a class="button xqlupdate-single-data" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Images & Price</a>';
+		}
+
+		if ( $column === 'UNITOFMEASURE' ) {
+			$unit_of_measure = get_post_meta( $post->ID, '_product_unit_of_measure', true );
+			echo $unit_of_measure;
 		}
 	}
 

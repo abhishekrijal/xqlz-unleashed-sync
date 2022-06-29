@@ -24,6 +24,8 @@
             jqxhr.always(function (data) {
                 // removeAndCheck(curEle);
                 $(curEle).removeClass('xql-isLoading');
+                // Reload window.
+                // window.location.reload();
             }
             );
         }
