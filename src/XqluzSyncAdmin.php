@@ -394,6 +394,11 @@ class XqluzSyncAdmin
 			// Save to meta.
 			update_post_meta( $productId, '_product_unit_of_measure', $unit_of_measure );
 
+			// Update Regular Price.
+			$reg_price = $product['DefaultSellPrice'];
+			update_post_meta( $productId, '_regular_price', $reg_price );
+			update_post_meta( $productId, '_price', $reg_price );
+
 			$imagesUrl = $product_data['Items'][0]['Images'];
 			$galleryImages = array();
 			if ($imagesUrl) {
