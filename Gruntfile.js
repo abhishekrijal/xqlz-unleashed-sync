@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 		"src/**",
 		"vendor/**",
 		"readme.txt",
-		"xqluz-unleashed-sync.php"
+		"xqlz-unleashed-sync.php"
 	];
 
 	/**
