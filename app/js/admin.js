@@ -5,13 +5,14 @@
             e.preventDefault();
 
             var curId = $(this).data("productid");
+            var updateMode = $(this).data("update");
             var curEle = $(this);
             var jqxhr = $.ajax({
                 type: "POST",
                 /* async:false, // set async false to wait for previous response */
                 url: ajaxurl,
                 dataType: "json",
-                data: { action: "xqluz_update_wc_products", product_id: curId },
+                data: { action: "xqluz_update_wc_products", product_id: curId, update_mode: updateMode },
                 beforeSend: function () {
                     // setting a timeout
                     $(curEle).addClass('xql-isLoading');

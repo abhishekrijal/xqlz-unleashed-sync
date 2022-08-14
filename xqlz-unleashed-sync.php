@@ -3,7 +3,7 @@
  * Plugin Name:     Xqlz Unleashed Sync
  * Plugin URI:      PLUGIN SITE HERE
  * Description:     PLUGIN DESCRIPTION HERE
- * Author:          YOUR NAME HERE
+ * Author:          Abhishek Rijal
  * Author URI:      YOUR SITE HERE
  * Text Domain:     xqlz-unleashed-sync
  * Domain Path:     /languages

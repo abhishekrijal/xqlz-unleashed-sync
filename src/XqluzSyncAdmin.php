@@ -19,8 +19,8 @@ class XqluzSyncAdmin
 {
 
 	public $api = "https://api.unleashedsoftware.com/";
-	public $apiId = "7f057946-85d2-4054-ba44-28ee24291882";
-	public $apiKey = "umYTexpzj6P8M9dL9VYXLOl8FD3SFaGKaUOUbWBLWrmXzHDVnR08Rs0mSzU07vC6MmsRY9lccXUdxJxfFQ==";
+	public $apiId = "02dd958a-79a7-49cf-8452-ed1ee1da0bbb";
+	public $apiKey = "whr6L2G2lTWgTFZmD0DQAmRpLX6z3lrp4M4xSRUyOiRZLoA41Bm7rB7vaekoCmTxr9bRpordvnPyYVx1pwF5fQ==";
 
 	/**
 	 * Constructor
@@ -60,7 +60,9 @@ class XqluzSyncAdmin
 		global $post;
 
 		// show button for v 3.4 and below
-		echo '<a class="button xqlupdate-single-data" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Images & Price</a>';
+		echo '<a class="button xqlupdate-single-data" data-update="images" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Images</a>';
+
+		echo '<a class="button xqlupdate-single-data" data-update="prices" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Prices</a>';
     }
 
 	/**
@@ -333,6 +335,8 @@ class XqluzSyncAdmin
 			$skuCode = $wcproduct->sku;
 		}
 
+		// print_r($wcproduct); die;
+
 		if ($skuCode) {
 			$customer_data = array();
 			$customers = $this->getCustomers();
@@ -358,9 +362,9 @@ class XqluzSyncAdmin
 			}
 			$totalCustomers = count($customer_data);
 
-			/* echo "<pre>";
-			print_R($customer_data);
-			echo "</pre>";exit; */
+			// echo "<pre>";
+			// print_R($customers);
+			// echo "</pre>";exit;
 
 			$request = 'ProductCode=' . $skuCode . '&includeAttributes=true';
 			if (empty($productId)) {
@@ -409,19 +413,22 @@ class XqluzSyncAdmin
 			update_post_meta( $productId, '_regular_price', $reg_price );
 			update_post_meta( $productId, '_price', $reg_price );
 
-			$imagesUrl = $product_data['Items'][0]['Images'];
-			$galleryImages = array();
-			if ($imagesUrl) {
-				foreach ($imagesUrl as $imgUrl) {
-					if ($imgUrl['IsDefault'] != 1) {
-						$gal_attach_id = $this->insertImageWp($imgUrl['Url']);
-						$galleryImages[] = $gal_attach_id;
+			if ( isset( $_REQUEST['update_mode'] ) && 'images' === $_REQUEST['update_mode'] ) {
+				$imagesUrl = $product_data['Items'][0]['Images'];
+				$galleryImages = array();
+				if ($imagesUrl) {
+					foreach ($imagesUrl as $imgUrl) {
+						if ($imgUrl['IsDefault'] != 1) {
+							$gal_attach_id = $this->insertImageWp($imgUrl['Url']);
+							$galleryImages[] = $gal_attach_id;
+						}
 					}
 				}
+				if ($galleryImages) {
+					update_post_meta($productId, '_product_image_gallery',  implode(',', $galleryImages));
+				}
 			}
-			if ($galleryImages) {
-				update_post_meta($productId, '_product_image_gallery',  implode(',', $galleryImages));
-			}
+
 			$priceWithRole = array();
 			$priceWithRole['Regular'] = $product['SellPriceTier1']['Value'];
 			$priceWithRole['Group 2'] = $product['SellPriceTier2']['Value'];
@@ -581,7 +588,9 @@ class XqluzSyncAdmin
 		global $post;
 
 		if ($column == 'UNLEASHUPDATE') {
-			echo '<a class="button xqlupdate-single-data" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Images & Price</a>';
+			echo '<a class="button xqlupdate-single-data" data-update="images" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Images</a>';
+
+			echo '<a style="margin-top:10px;" class="button xqlupdate-single-data" data-update="prices" data-productid="'. esc_attr( $post->ID ) .'" target="_blank" href="">Update Prices</a>';
 		}
 
 		if ( $column === 'UNITOFMEASURE' ) {
